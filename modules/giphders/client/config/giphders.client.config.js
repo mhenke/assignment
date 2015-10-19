@@ -1,7 +1,7 @@
 'use strict';
 
 // Configuring the Giphders module
-angular.module('giphders', ['ngTouch']).run(['Menus',
+angular.module('giphders').run(['Menus',
   function (Menus) {
     // Add the giphders dropdown item
     Menus.addMenuItem('topbar', {
