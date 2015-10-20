@@ -82,9 +82,9 @@
       expect(scope.giphders).toEqualData(sampleGiphders);
     }));
 
-    it('$scope.findOne() should create an array with one giphder object fetched from XHR using a giphderId URL parameter', inject(function (Giphders) {
+    it('$scope.findOne() should create an array with one giphder object fetched from XHR using a giphyId URL parameter', inject(function (Giphders) {
       // Set the URL parameter
-      $stateParams.giphderId = mockGiphder._id;
+      $stateParams.giphyId = mockGiphder._id;
 
       // Set GET response
       $httpBackend.expectGET(/api\/giphders\/([0-9a-fA-F]{24})$/).respond(mockGiphder);
@@ -186,7 +186,7 @@
         scope.remove(mockGiphder);
       });
 
-      it('should send a DELETE request with a valid giphderId and remove the giphder from the scope', inject(function (Giphders) {
+      it('should send a DELETE request with a valid giphyId and remove the giphder from the scope', inject(function (Giphders) {
         expect(scope.giphders.length).toBe(1);
       }));
     });

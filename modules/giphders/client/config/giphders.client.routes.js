@@ -28,15 +28,8 @@ angular.module('giphders').config(['$stateProvider',
         }
       })
       .state('giphders.view', {
-        url: '/:giphderId',
+        url: '/:giphyId',
         templateUrl: 'modules/giphders/client/views/view-giphder.client.view.html'
-      })
-      .state('giphders.edit', {
-        url: '/:giphderId/edit',
-        templateUrl: 'modules/giphders/client/views/edit-giphder.client.view.html',
-        data: {
-          roles: ['user', 'admin']
-        }
       });
   }
 ]);

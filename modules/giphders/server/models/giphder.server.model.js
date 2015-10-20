@@ -14,20 +14,17 @@ var GiphderSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  title: {
+  _id: {
     type: String,
     default: '',
     trim: true,
-    required: 'Title cannot be blank'
+    required: 'Id cannot be blank'
   },
-  content: {
+  giphyId: {
     type: String,
     default: '',
-    trim: true
-  },
-  user: {
-    type: Schema.ObjectId,
-    ref: 'User'
+    trim: true,
+    required: 'GiphyId cannot be blank'
   }
 });
 

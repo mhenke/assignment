@@ -18,7 +18,7 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/giphders',
       permissions: '*'
     }, {
-      resources: '/api/giphders/:giphderId',
+      resources: '/api/giphders/:_id/:giphyId',
       permissions: '*'
     }]
   }, {
@@ -27,7 +27,7 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/giphders',
       permissions: ['get', 'post']
     }, {
-      resources: '/api/giphders/:giphderId',
+      resources: '/api/giphders/:_id/:giphyId',
       permissions: ['get']
     }]
   }, {
@@ -36,7 +36,7 @@ exports.invokeRolesPolicies = function () {
       resources: '/api/giphders',
       permissions: ['get']
     }, {
-      resources: '/api/giphders/:giphderId',
+      resources: '/api/giphders/:_id/:giphyId',
       permissions: ['get']
     }]
   }]);

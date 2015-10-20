@@ -24,11 +24,7 @@ angular.module('giphders').controller('GiphdersController', ['$scope', '$statePa
 
       // Redirect after save
       giphder.$save(function (response) {
-        $location.path('giphders/' + response._id);
-
-        // Clear form fields
-        $scope.title = '';
-        $scope.content = '';
+        $location.path('giphders/' + response._id + '/' + response.giphyId);
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });
@@ -51,21 +47,19 @@ angular.module('giphders').controller('GiphdersController', ['$scope', '$statePa
       }
     };
     
-     // Remove existing Giphder
+     // Add favorite
     $scope.addToFavorites = function (giphder, eventObject) {
-      alert(giphder._id + ' added to favorites ' + giphder.giphderId);
-      eventObject.target.remove();
+      // alert(giphder._id + ' added to favorites ' + giphder.giphyId);
       // Create new Giphder object
-      var giphderFavorite = new Giphders({
-        _id: giphder._id,
-        giphderId:giphder.giphderId
-      });
+      var giphderFavorite = new Giphders(giphder);
       
       // remove item after saving
       giphderFavorite.$save(function (response) {
+        
         eventObject.target.remove();
       }, function (errorResponse) {
         // put item back on deck
+        alert('error saving');
       });
       
     };
@@ -83,7 +77,7 @@ angular.module('giphders').controller('GiphdersController', ['$scope', '$statePa
       var giphder = $scope.giphder;
 
       giphder.$update(function () {
-        $location.path('giphders/' + giphder._id);
+        $location.path('giphders333333/' + giphder._id);
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });
@@ -119,7 +113,8 @@ angular.module('giphders').controller('GiphdersController', ['$scope', '$statePa
     // Find existing Giphder
     $scope.findOne = function () {
       $scope.giphder = Giphders.get({
-        giphderId: $stateParams.giphderId
+        _id: $stateParams._id,
+        giphyId: $stateParams.giphyId
       });
     };
   }
