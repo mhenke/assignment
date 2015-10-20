@@ -91,7 +91,6 @@ angular.module('giphders').controller('GiphdersController', ['$scope', '$statePa
     // Find a list of Giphders
     $scope.find = function () {
       $scope.cards = [];
-      
       $http.get('//api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC&limit=5')
         .success(
           function(data,status){
