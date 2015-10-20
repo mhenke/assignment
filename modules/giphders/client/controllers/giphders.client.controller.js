@@ -52,20 +52,20 @@ angular.module('giphders').controller('GiphdersController', ['$scope', '$statePa
     };
     
      // Remove existing Giphder
-    $scope.addToFavorites = function (giphder) {
+    $scope.addToFavorites = function (giphder, eventObject) {
       alert(giphder._id + ' added to favorites ' + giphder.giphderId);
-      
+      eventObject.target.remove();
       // Create new Giphder object
       var giphderFavorite = new Giphders({
         _id: giphder._id,
         giphderId:giphder.giphderId
       });
       
-      // Redirect after save
+      // remove item after saving
       giphderFavorite.$save(function (response) {
-        $location.path('giphders/' + response._id);
+        eventObject.target.remove();
       }, function (errorResponse) {
-        $scope.error = errorResponse.data.message;
+        // put item back on deck
       });
       
     };
@@ -112,8 +112,8 @@ angular.module('giphders').controller('GiphdersController', ['$scope', '$statePa
         );
     };
     
-    $scope.remove = function (index) {
-      index.target.remove();
+    $scope.remove = function (eventObject) {
+      eventObject.target.remove();
     };
     
     // Find existing Giphder
