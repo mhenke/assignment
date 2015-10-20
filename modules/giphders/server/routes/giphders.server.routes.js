@@ -13,9 +13,9 @@ module.exports = function (app) {
     .post(giphders.create);
 
   // Single giphder routes
-  app.route('/api/giphders/:giphderId').all(giphdersPolicy.isAllowed)
+  app.route('/api/giphders/:_Id/:giphderId').all(giphdersPolicy.isAllowed)
     .get(giphders.read)
-    .put(giphders.update)
+    .put(giphders.create)
     .delete(giphders.delete);
 
   // Finish by binding the giphder middleware

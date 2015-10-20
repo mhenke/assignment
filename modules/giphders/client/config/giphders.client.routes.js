@@ -21,7 +21,7 @@ angular.module('giphders').config(['$stateProvider',
         }
       })
       .state('giphders.favorites', {
-        url: '/create',
+        url: '/favorites',
         templateUrl: 'modules/giphders/client/views/favorites-giphder.client.view.html',
         data: {
           roles: ['user', 'admin']

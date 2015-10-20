@@ -1,19 +1,18 @@
 <section ng-controller="GiphdersController" ng-init="find()">
   <div class="page-header">
-    <h1>Giphders</h1>
+    <h1>Gifs</h1>
   </div>
-  <div class="list-group">
-    <a ng-repeat="giphder in giphders" ui-sref="giphders.view({giphderId: giphder.id})" class="list-group-item">
-      <img ng-src="{{giphder.images.fixed_height_small.url}}" alt="Description" />
-      <small class="list-group-item-text">
-        Posted on
-        <span ng-bind="giphder.trending_datetime | date:'mediumDate'"></span>
-        by
-        <span ng-bind="giphder.username"></span>
-      </small>
-      <h4 class="list-group-item-heading" ng-bind="giphder.title"></h4>
-      <p class="list-group-item-text" ng-bind="giphder.source_tld"></p>
-    </a>
+  <div id="viewport" class="list-group">
+      <ul class="stack list-group-item" swing-stack>
+          <li swing-card
+              swing-on-throwoutleft="addToFavorites({giphderId: giphder.id, _id: authentication.user._id})"
+              swing-on-throwoutright="remove($index)"
+              ng-repeat="card in cards">
+            <img id="{{card.id}}"
+              ng-src="{{card.url}}"
+              alt="Description" />
+          </li> 
+      </ul>
   </div>
   <div class="alert alert-warning text-center" ng-if="giphders.$resolved && !giphders.length">
     No giphders yet, why don't you <a ui-sref="giphders.create">create one</a>?

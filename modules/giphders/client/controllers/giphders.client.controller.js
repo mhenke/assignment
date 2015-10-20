@@ -49,6 +49,25 @@ angular.module('giphders').controller('GiphdersController', ['$scope', '$statePa
         });
       }
     };
+    
+     // Remove existing Giphder
+    $scope.addToFavorites = function (giphder) {
+      alert(giphder._id + ' added to favorites ' + giphder.giphderId);
+      
+      // Create new Giphder object
+      var giphderFavorite = new Giphders({
+        _id: giphder._id,
+        giphderId:giphder.giphderId
+      });
+      
+      // Redirect after save
+      giphderFavorite.$save(function (response) {
+        $location.path('giphders/' + response._id);
+      }, function (errorResponse) {
+        $scope.error = errorResponse.data.message;
+      });
+      
+    };
 
     // Update existing Giphder
     $scope.update = function (isValid) {
@@ -71,25 +90,32 @@ angular.module('giphders').controller('GiphdersController', ['$scope', '$statePa
 
     // Find a list of Giphders
     $scope.find = function () {
+      $scope.cards = [];
       
       $http.get('//api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC&limit=5')
-            .success(
-              function(data,status){
-
-                if(typeof data==='object'){
-                  $scope.giphders = data.data;
-                }
-
-              }
-
-            )
-            .error(
-              function(){
-                $scope.error = 'Failed to access';
-              }
-            );
+        .success(
+          function(data,status){
+            if(typeof data==='object'){
+              angular.forEach(data.data, function(item){
+                $scope.cards.push({
+                  id: item.id,
+                  url: item.images.fixed_height_small.url
+                });
+              });
+            }
+          }
+        )
+        .error(
+          function(){
+            $scope.error = 'Failed to access';
+          }
+        );
     };
-
+    
+    $scope.remove = function (index) {
+      $scope.cards.splice(index, 1);
+    };
+    
     // Find existing Giphder
     $scope.findOne = function () {
       $scope.giphder = Giphders.get({
