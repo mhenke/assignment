@@ -1,3 +1,4 @@
+/*global gajus */
 'use strict';
 
 // Giphders controller
@@ -112,7 +113,7 @@ angular.module('giphders').controller('GiphdersController', ['$scope', '$statePa
     };
     
     $scope.remove = function (index) {
-      $scope.cards.splice(index, 1);
+      index.target.remove();
     };
     
     // Find existing Giphder

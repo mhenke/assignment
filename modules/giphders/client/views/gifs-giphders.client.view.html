@@ -6,9 +6,10 @@
       <ul class="stack list-group-item" swing-stack>
           <li swing-card
               swing-on-throwoutleft="addToFavorites({giphderId: card.id, _id: authentication.user._id})"
-              swing-on-throwoutright="remove($index)"
-              ng-repeat="card in cards">
-            <img id="{{card.id}}"
+              swing-on-throwoutright="remove(eventObject)"
+              ng-repeat="card in cards"
+              id="{{card.id}}">
+            <img
               ng-src="{{card.url}}"
               alt="Description" />
           </li> 
