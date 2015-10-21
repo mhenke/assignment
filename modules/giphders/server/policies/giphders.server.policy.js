@@ -20,6 +20,9 @@ exports.invokeRolesPolicies = function () {
     }, {
       resources: '/api/giphders/:giphderId',
       permissions: '*'
+    }, {
+      resources: '/api/favorites',
+      permissions: '*'
     }]
   }, {
     roles: ['user'],
@@ -28,6 +31,9 @@ exports.invokeRolesPolicies = function () {
       permissions: ['get', 'post']
     }, {
       resources: '/api/giphders/:giphderId',
+      permissions: ['get']
+    }, {
+      resources: '/api/favorites',
       permissions: ['get']
     }]
   }, {

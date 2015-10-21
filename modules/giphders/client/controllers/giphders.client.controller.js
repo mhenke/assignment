@@ -50,6 +50,7 @@ angular.module('giphders').controller('GiphdersController', ['$scope', '$statePa
     // Find a list of Favorites
     $scope.findFavorites = function () {
       $scope.favorites = Giphders.query();
+      //giphders.find({ 'userid': '5626d34a09f4bc4141bc62fe' })
     };
     
      // Add favorite
@@ -66,25 +67,6 @@ angular.module('giphders').controller('GiphdersController', ['$scope', '$statePa
         alert('error saving');
       });
       
-    };
-
-    // Update existing Giphder
-    $scope.update = function (isValid) {
-      $scope.error = null;
-
-      if (!isValid) {
-        $scope.$broadcast('show-errors-check-validity', 'giphderForm');
-
-        return false;
-      }
-
-      var giphder = $scope.giphder;
-
-      giphder.$update(function () {
-        $location.path('giphders/' + giphder._id);
-      }, function (errorResponse) {
-        $scope.error = errorResponse.data.message;
-      });
     };
 
     // Find a list of Giphders

@@ -86,6 +86,21 @@ exports.list = function (req, res) {
 };
 
 /**
+ * List of Favorites by userID
+ */
+exports.listFavorites = function (req, res) {
+  Giphder.find({ userid: req._passport.session.user }).exec(function (err, giphders) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.json(giphders);
+    }
+  });
+};
+
+/**
  * Giphder middleware
  */
 exports.giphderByID = function (req, res, next, id) {

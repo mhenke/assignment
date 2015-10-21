@@ -17,6 +17,10 @@ module.exports = function (app) {
     .get(giphders.read)
     .put(giphders.update)
     .delete(giphders.delete);
+    
+   // Single giphder routes
+  app.route('/api/favorites').all(giphdersPolicy.isAllowed)
+    .get(giphders.listFavorites);
 
   // Finish by binding the giphder middleware
   app.param('giphderId', giphders.giphderByID);
