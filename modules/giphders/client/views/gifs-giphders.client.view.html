@@ -10,14 +10,11 @@
               ng-repeat="card in cards"
               id="{{card.id}}"
               class="draggable"
-              ng-mouseenter="hovering=true"
-              ng-mouseleave="hovering=false"
               >
             <img
               ng-src="{{card.url}}"
               alt="Description"
               class="giphy giphy-gray"
-              draggable="true"
               />
           </li> 
       </ul>
