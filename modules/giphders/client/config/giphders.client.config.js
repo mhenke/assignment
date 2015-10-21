@@ -5,7 +5,7 @@ angular.module('giphders').run(['Menus',
   function (Menus) {
     // Add the giphders dropdown item
     Menus.addMenuItem('topbar', {
-      title: 'Giphders',
+      title: 'Menu',
       state: 'giphders',
       type: 'dropdown',
       roles: ['user']

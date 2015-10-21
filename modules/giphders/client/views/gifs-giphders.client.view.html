@@ -8,10 +8,17 @@
               swing-on-throwoutleft="addToFavorites({giphyId: card.id, _id: authentication.user._id}, eventObject)"
               swing-on-throwoutright="remove(eventObject)"
               ng-repeat="card in cards"
-              id="{{card.id}}">
+              id="{{card.id}}"
+              class="draggable"
+              ng-mouseenter="hovering=true"
+              ng-mouseleave="hovering=false"
+              >
             <img
               ng-src="{{card.url}}"
-              alt="Description" />
+              alt="Description"
+              class="giphy giphy-gray"
+              draggable="true"
+              />
           </li> 
       </ul>
   </div>
