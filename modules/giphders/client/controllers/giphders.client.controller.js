@@ -47,6 +47,11 @@ angular.module('giphders').controller('GiphdersController', ['$scope', '$statePa
       }
     };
     
+    // Find a list of Favorites
+    $scope.findFavorites = function () {
+      $scope.favorites = Giphders.query();
+    };
+    
      // Add favorite
     $scope.addToFavorites = function (giphder, eventObject) {
       // alert(giphder._id + ' added to favorites ' + giphder.giphyId);
@@ -55,10 +60,9 @@ angular.module('giphders').controller('GiphdersController', ['$scope', '$statePa
       
       // remove item after saving
       giphderFavorite.$save(function (response) {
-        
         eventObject.target.remove();
       }, function (errorResponse) {
-        // put item back on deck
+        eventObject.target.remove();
         alert('error saving');
       });
       
@@ -77,7 +81,7 @@ angular.module('giphders').controller('GiphdersController', ['$scope', '$statePa
       var giphder = $scope.giphder;
 
       giphder.$update(function () {
-        $location.path('giphders333333/' + giphder._id);
+        $location.path('giphders/' + giphder._id);
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });
@@ -93,7 +97,7 @@ angular.module('giphders').controller('GiphdersController', ['$scope', '$statePa
               angular.forEach(data.data, function(item){
                 $scope.cards.push({
                   id: item.id,
-                  url: item.images.fixed_height_small.url
+                  url: item.images.fixed_width_small.url
                 });
               });
             }

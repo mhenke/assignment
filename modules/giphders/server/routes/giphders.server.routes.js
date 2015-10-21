@@ -9,14 +9,15 @@ var giphdersPolicy = require('../policies/giphders.server.policy'),
 module.exports = function (app) {
   // Giphders collection routes
   app.route('/api/giphders').all(giphdersPolicy.isAllowed)
-    .get(giphders.list);
+    .get(giphders.list)
+    .post(giphders.create);
 
   // Single giphder routes
-  app.route('/api/giphders/:_id/:giphyId').all(giphdersPolicy.isAllowed)
-    .put(giphders.create)
+  app.route('/api/giphders/:giphderId').all(giphdersPolicy.isAllowed)
+    .get(giphders.read)
+    .put(giphders.update)
     .delete(giphders.delete);
 
   // Finish by binding the giphder middleware
-  app.param('_id', giphders.giphderByID);
-  app.param('giphyId', giphders.giphderByID);
+  app.param('giphderId', giphders.giphderByID);
 };
