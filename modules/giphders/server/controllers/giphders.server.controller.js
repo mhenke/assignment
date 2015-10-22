@@ -46,12 +46,6 @@ exports.delete = function (req, res) {
 };
 
 /**
- * List of giphy items
- */
-exports.list = function (req, res) {
-};
-
-/**
  * List of Favorites by user
  */
 exports.listFavorites = function (req, res) {

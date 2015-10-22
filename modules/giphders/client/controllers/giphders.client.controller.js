@@ -69,6 +69,11 @@ angular.module('giphders').controller('GiphdersController', ['$scope', '$statePa
       $scope.rejectedAlert();
     };
     
+    // Remove favorite item
+    $scope.removeFavorite = function(giphderid){				
+      $scope.errorAlert();
+  	};
+    
     $scope.approvedAlert = function () {
       var message = '<strong> Well done!</strong>  You saved the giphy to your favorites.';
       Flash.create('success', message, 'customAlert');

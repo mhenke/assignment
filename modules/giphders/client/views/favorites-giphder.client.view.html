@@ -1,21 +1,26 @@
 <section ng-controller="GiphdersController" ng-init="findFavorites()">
   <div class="page-header">
     <h1>Favorites</h1>
+    <span flash-message="2500"></span> 
   </div>
   <div class="list-group">
     <ul class="row">
-          <div class="col-md-3 col-sm-4 col-xs-6 favimg"
-              ng-repeat="favorite in favorites">
-              <img
-                alt="{{favorite.giphyid}}"
-                ng-src="https://media1.giphy.com/media/{{favorite.giphyid}}/100.gif"
-                class="giphy" />
-          </div>
+      <div class="col-md-3 col-sm-4 col-xs-6 favimg"
+          ng-repeat="favorite in favorites">
+          <img
+            alt="{{favorite.giphyid}}"
+            ng-src="https://media1.giphy.com/media/{{favorite.giphyid}}/100.gif"
+            class="giphy" 
+            />
+          <div>
+            <button type="button" class="btn btn-primary" ng-click="removeFavorite(favorite.giphyid)">
+              <span class="glyphicon glyphicon-remove"></span> <span>Remove</span>
+            </button>
+          </div> 
+      </div>
     </ul>
   </div>
-  <div class="alert alert-warning text-center" ng-if="giphders.$resolved && !giphders.length">
-    No giphders yet, why don't you <a ui-sref="giphders.create">create one</a>?
+  <div class="alert alert-warning text-center" ng-if="!favorites.length">
+    No favorites yet, why don't you <a ui-sref="giphders.gifs">create some</a>?
   </div>
 </section>
-
-
