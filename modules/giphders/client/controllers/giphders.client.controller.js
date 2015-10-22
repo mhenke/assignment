@@ -82,7 +82,7 @@ angular.module('giphders').controller('GiphdersController', ['$scope', '$statePa
     };
     
     $scope.errorAlert = function () {
-      var message = '<strong> Warning!</strong>  We are screwed, something went wrong, very wrong..';
+      var message = '<strong> Warning!</strong>  We are screwed. Something went wrong, very wrong..';
       Flash.create('warning', message, 'customAlert');
     };
   }
