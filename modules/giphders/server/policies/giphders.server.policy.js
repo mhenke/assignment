@@ -31,7 +31,7 @@ exports.invokeRolesPolicies = function () {
       permissions: ['get', 'post']
     }, {
       resources: '/api/giphders/:giphderId',
-      permissions: ['get']
+      permissions: ['post']
     }, {
       resources: '/api/favorites',
       permissions: ['get']
@@ -40,9 +40,6 @@ exports.invokeRolesPolicies = function () {
     roles: ['guest'],
     allows: [{
       resources: '/api/giphders',
-      permissions: ['get']
-    }, {
-      resources: '/api/giphders/:giphderId',
       permissions: ['get']
     }]
   }]);

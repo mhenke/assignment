@@ -4,7 +4,7 @@
 angular.module('giphders').factory('Giphders', ['$resource',
   function ($resource) {
     return $resource('api/giphders/:giphyId', {
-      giphyId: '@giphyId'
+      giphyId: '@giphyId',
     }, {
       update: {
         method: 'PUT'

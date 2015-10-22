@@ -6,56 +6,28 @@ angular.module('giphders').controller('GiphdersController', ['$scope', '$statePa
   function ($scope, $stateParams, $http, $location, Authentication, Giphders) {
     $scope.authentication = Authentication;
 
-    // Create new Giphder
-    $scope.create = function (isValid) {
-      $scope.error = null;
-
-      if (!isValid) {
-        $scope.$broadcast('show-errors-check-validity', 'giphderForm');
-
-        return false;
-      }
-
-      // Create new Giphder object
-      var giphder = new Giphders({
-        title: this.title,
-        content: this.content
-      });
-
-      // Redirect after save
-      giphder.$save(function (response) {
-        $location.path('giphders/' + response._id + '/' + response.giphyId);
-      }, function (errorResponse) {
-        $scope.error = errorResponse.data.message;
-      });
-    };
-
-    // Remove existing Giphder
-    $scope.remove = function (giphder) {
-      if (giphder) {
-        giphder.$remove();
-
-        for (var i in $scope.giphders) {
-          if ($scope.giphders[i] === giphder) {
-            $scope.giphders.splice(i, 1);
-          }
-        }
-      } else {
-        $scope.giphder.$remove(function () {
-          $location.path('giphders');
-        });
-      }
-    };
-    
     // Find a list of Favorites
     $scope.findFavorites = function () {
-      $scope.favorites = Giphders.query();
+      //$scope.favorites = Giphders.query();
       //giphders.find({ 'userid': '5626d34a09f4bc4141bc62fe' })
+      $http.get('/api/favorites/')
+        .success(
+          function(data,status){
+            if(typeof data==='object'){
+              $scope.favorites = data;
+            }
+          }
+        )
+        .error(
+          function(){
+            $scope.error = 'Failed to access';
+          }
+        );
     };
     
      // Add favorite
     $scope.addToFavorites = function (giphder, eventObject) {
-      // alert(giphder._id + ' added to favorites ' + giphder.giphyId);
+      console.log('_id: ' + giphder._id + ' added to favorites giphyId: ' + giphder.giphyId);
       // Create new Giphder object
       var giphderFavorite = new Giphders(giphder);
       
@@ -72,7 +44,7 @@ angular.module('giphders').controller('GiphdersController', ['$scope', '$statePa
     // Find a list of Giphders
     $scope.find = function () {
       $scope.cards = [];
-      $http.get('//api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC&limit=5')
+      $http.get('//api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC&limit=100')
         .success(
           function(data,status){
             if(typeof data==='object'){
@@ -92,16 +64,10 @@ angular.module('giphders').controller('GiphdersController', ['$scope', '$statePa
         );
     };
     
+    // Remove Giphder card
     $scope.remove = function (eventObject) {
       eventObject.target.remove();
     };
     
-    // Find existing Giphder
-    $scope.findOne = function () {
-      $scope.giphder = Giphders.get({
-        _id: $stateParams._id,
-        giphyId: $stateParams.giphyId
-      });
-    };
   }
 ]);
