@@ -1,9 +1,9 @@
-/*global gajus */
+/*global gajus, Flash */
 'use strict';
 
 // Giphders controller
-angular.module('giphders').controller('GiphdersController', ['$scope', '$stateParams', '$http', '$location', 'Authentication', 'Giphders',
-  function ($scope, $stateParams, $http, $location, Authentication, Giphders) {
+angular.module('giphders').controller('GiphdersController', ['$scope', '$stateParams', '$http', '$location', 'Authentication', 'Giphders', 'Flash',
+  function ($scope, $stateParams, $http, $location, Authentication, Giphders, Flash) {
     $scope.authentication = Authentication;
 
     // Find a list of Favorites
@@ -20,7 +20,7 @@ angular.module('giphders').controller('GiphdersController', ['$scope', '$statePa
         )
         .error(
           function(){
-            $scope.error = 'Failed to access';
+            $scope.errorAlert();
           }
         );
     };
@@ -34,9 +34,10 @@ angular.module('giphders').controller('GiphdersController', ['$scope', '$statePa
       // remove item after saving
       giphderFavorite.$save(function (response) {
         eventObject.target.remove();
+        $scope.approvedAlert();
       }, function (errorResponse) {
         eventObject.target.remove();
-        alert('error saving');
+        $scope.errorAlert();
       });
       
     };
@@ -59,7 +60,7 @@ angular.module('giphders').controller('GiphdersController', ['$scope', '$statePa
         )
         .error(
           function(){
-            $scope.error = 'Failed to access';
+            $scope.errorAlert();
           }
         );
     };
@@ -67,7 +68,22 @@ angular.module('giphders').controller('GiphdersController', ['$scope', '$statePa
     // Remove Giphder card
     $scope.remove = function (eventObject) {
       eventObject.target.remove();
+      $scope.rejectedAlert();
     };
     
+    $scope.approvedAlert = function () {
+      var message = '<strong> Well done!</strong>  You saved the giphy to your favorites.';
+      Flash.create('success', message, 'customAlert');
+    };
+    
+    $scope.rejectedAlert = function () {
+      var message = '<strong> Oh Snap!</strong>  You rejected the giphy.';
+      Flash.create('danger', message, 'customAlert');
+    };
+    
+    $scope.errorAlert = function () {
+      var message = '<strong> Warning!</strong>  We are screwed, something went wrong, very wrong..';
+      Flash.create('warning', message, 'customAlert');
+    };
   }
 ]);

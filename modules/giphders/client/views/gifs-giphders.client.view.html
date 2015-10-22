@@ -1,23 +1,24 @@
 <section ng-controller="GiphdersController" ng-init="find(authentication)">
   <div class="page-header">
-    <h1>Gifs</h1>
+    <h1>Gifs</h1><span flash-message="5000"></span> 
   </div>
   <div id="viewport" class="list-group">
-      <ul class="stack list-group-item" swing-stack>
-          <li swing-card
-              swing-on-throwoutright="addToFavorites({giphyId: card.id, _id: authentication.user._id}, eventObject)"
-              swing-on-throwoutleft="remove(eventObject)"
-              ng-repeat="card in cards"
-              id="{{card.id}}"
-              class="draggable"
-              >
-            <img
-              ng-src="{{card.url}}"
-              alt="Description"
-              class="giphy giphy-gray"
-              />
-          </li> 
-      </ul>
+    
+    <ul class="stack list-group-item" swing-stack>
+        <li swing-card
+            swing-on-throwoutright="addToFavorites({giphyId: card.id, _id: authentication.user._id}, eventObject)"
+            swing-on-throwoutleft="remove(eventObject)"
+            ng-repeat="card in cards"
+            id="{{card.id}}"
+            class="draggable"
+            >
+          <img
+            ng-src="{{card.url}}"
+            alt="Description"
+            class="giphy giphy-gray"
+            />
+        </li> 
+    </ul>
   </div>
   <div class="alert alert-warning text-center" ng-if="giphders.$resolved && !giphders.length">
     No giphders yet, why don't you <a ui-sref="giphders.create">create one</a>?
