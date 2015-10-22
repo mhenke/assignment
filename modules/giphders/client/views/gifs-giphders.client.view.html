@@ -5,8 +5,8 @@
   <div id="viewport" class="list-group">
       <ul class="stack list-group-item" swing-stack>
           <li swing-card
-              swing-on-throwoutleft="addToFavorites({giphyId: card.id, _id: authentication.user._id}, eventObject)"
-              swing-on-throwoutright="remove(eventObject)"
+              swing-on-throwoutright="addToFavorites({giphyId: card.id, _id: authentication.user._id}, eventObject)"
+              swing-on-throwoutleft="remove(eventObject)"
               ng-repeat="card in cards"
               id="{{card.id}}"
               class="draggable"
