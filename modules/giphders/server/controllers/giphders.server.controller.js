@@ -9,40 +9,13 @@ var path = require('path'),
   errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
 
 /**
- * Create a giphder
+ * Add to favorites by userid
  */
 exports.create = function (req, res) {
   var giphder = new Giphder();
   
   giphder.userid = req._passport.session.user;
   giphder.giphyid = req.params.giphderId;
-
-  giphder.save(function (err) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.json(giphder);
-    }
-  });
-};
-
-/**
- * Show the current giphder
- */
-exports.read = function (req, res) {
-  res.json(req.giphder);
-};
-
-/**
- * Update a giphder
- */
-exports.update = function (req, res) {
-  var giphder = req.giphder;
-
-  giphder.title = req.body.title;
-  giphder.content = req.body.content;
 
   giphder.save(function (err) {
     if (err) {
@@ -73,22 +46,13 @@ exports.delete = function (req, res) {
 };
 
 /**
- * List of Giphders
+ * List of giphy items
  */
 exports.list = function (req, res) {
-  Giphder.find().sort('-created').populate('user', 'displayName').exec(function (err, giphders) {
-    if (err) {
-      return res.status(400).send({
-        message: errorHandler.getErrorMessage(err)
-      });
-    } else {
-      res.json(giphders);
-    }
-  });
 };
 
 /**
- * List of Favorites by userID
+ * List of Favorites by user
  */
 exports.listFavorites = function (req, res) {
   Giphder.find({ userid: req._passport.session.user }).exec(function (err, giphders) {

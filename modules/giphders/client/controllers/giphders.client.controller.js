@@ -9,7 +9,6 @@ angular.module('giphders').controller('GiphdersController', ['$scope', '$statePa
     // Find a list of Favorites
     $scope.findFavorites = function () {
       //$scope.favorites = Giphders.query();
-      //giphders.find({ 'userid': '5626d34a09f4bc4141bc62fe' })
       $http.get('/api/favorites/')
         .success(
           function(data,status){
@@ -31,7 +30,7 @@ angular.module('giphders').controller('GiphdersController', ['$scope', '$statePa
       // Create new Giphder object
       var giphderFavorite = new Giphders(giphder);
       
-      // remove item after saving
+      // Remove card after saving
       giphderFavorite.$save(function (response) {
         eventObject.target.remove();
         $scope.approvedAlert();
@@ -39,10 +38,9 @@ angular.module('giphders').controller('GiphdersController', ['$scope', '$statePa
         eventObject.target.remove();
         $scope.errorAlert();
       });
-      
     };
 
-    // Find a list of Giphders
+    // Find the trending giphy items
     $scope.find = function () {
       $scope.cards = [];
       $http.get('//api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC&limit=100')
@@ -65,7 +63,7 @@ angular.module('giphders').controller('GiphdersController', ['$scope', '$statePa
         );
     };
     
-    // Remove Giphder card
+    // Remove card
     $scope.remove = function (eventObject) {
       eventObject.target.remove();
       $scope.rejectedAlert();

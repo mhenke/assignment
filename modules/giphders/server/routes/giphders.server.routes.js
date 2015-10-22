@@ -9,7 +9,7 @@ var giphdersPolicy = require('../policies/giphders.server.policy'),
 module.exports = function (app) {
   // Giphders collection routes
   app.route('/api/giphders').all(giphdersPolicy.isAllowed)
-    .get(giphders.list);
+    .get();
 
   // Single giphder routes
   app.route('/api/giphders/:giphderId').all(giphdersPolicy.isAllowed)
