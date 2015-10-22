@@ -1,14 +1,14 @@
 <section ng-controller="GiphdersController" ng-init="find(authentication)">
   <div class="page-header">
     <h1>Gifs</h1>
-    <span flash-message="3000"></span> 
+    <span flash-message="5000"></span> 
   </div>
   <div id="viewport" class="list-group">
     
     <ul class="stack list-group-item" swing-stack>
         <li swing-card
-            swing-on-throwoutright="addToFavorites({giphyId: card.id, _id: authentication.user._id}, eventObject)"
-            swing-on-throwoutleft="remove(eventObject)"
+            swing-on-throwoutright="addToFavorites({giphyId: card.id}, eventObject)"
+            swing-on-throwoutleft="rejectCard(eventObject)"
             ng-repeat="card in cards"
             id="{{card.id}}"
             class="draggable"

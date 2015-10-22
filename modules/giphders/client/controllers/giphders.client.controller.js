@@ -8,25 +8,14 @@ angular.module('giphders').controller('GiphdersController', ['$scope', '$statePa
 
     // Find a list of Favorites
     $scope.findFavorites = function () {
-      //$scope.favorites = Giphders.query();
-      $http.get('/api/favorites/')
-        .success(
-          function(data,status){
-            if(typeof data==='object'){
-              $scope.favorites = data;
-            }
-          }
-        )
-        .error(
-          function(){
-            $scope.errorAlert();
-          }
-        );
+      $scope.favorites = Giphders.query(function (response) {
+      }, function (errorResponse) {
+        $scope.errorAlert();
+      });
     };
     
      // Add favorite
     $scope.addToFavorites = function (giphder, eventObject) {
-      console.log('_id: ' + giphder._id + ' added to favorites giphyId: ' + giphder.giphyId);
       // Create new Giphder object
       var giphderFavorite = new Giphders(giphder);
       
@@ -63,16 +52,18 @@ angular.module('giphders').controller('GiphdersController', ['$scope', '$statePa
         );
     };
     
-    // Remove card
-    $scope.remove = function (eventObject) {
+    // Reject card
+    $scope.rejectCard = function (eventObject) {
       eventObject.target.remove();
       $scope.rejectedAlert();
     };
     
     // Remove favorite item
-    $scope.removeFavorite = function(giphderid){				
+    $scope.remove = function(_id){	
+      //var findFavorite = new Giphders();
+      //findFavorite.remove();
       $scope.errorAlert();
-  	};
+    };
     
     $scope.approvedAlert = function () {
       var message = '<strong> Well done!</strong>  You saved the giphy to your favorites.';

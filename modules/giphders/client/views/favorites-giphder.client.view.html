@@ -1,7 +1,7 @@
 <section ng-controller="GiphdersController" ng-init="findFavorites()">
   <div class="page-header">
     <h1>Favorites</h1>
-    <span flash-message="2500"></span> 
+    <span flash-message="5000"></span> 
   </div>
   <div class="list-group">
     <ul class="row">
@@ -13,7 +13,7 @@
             class="giphy" 
             />
           <div>
-            <button type="button" class="btn btn-primary" ng-click="removeFavorite(favorite.giphyid)">
+            <button type="button" class="btn btn-primary" ng-click="removeFavorite(favorite._id)">
               <span class="glyphicon glyphicon-remove"></span> <span>Remove</span>
             </button>
           </div> 
