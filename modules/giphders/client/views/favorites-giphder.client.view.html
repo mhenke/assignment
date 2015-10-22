@@ -4,11 +4,12 @@
   </div>
   <div class="list-group">
     <ul class="row">
-          <div class="col-md-3 col-sm-4 col-xs-6"
+          <div class="col-md-3 col-sm-4 col-xs-6 favimg"
               ng-repeat="favorite in favorites">
               <img
                 alt="{{favorite.giphyid}}"
-                ng-src="https://media1.giphy.com/media/{{favorite.giphyid}}/100.gif" />
+                ng-src="https://media1.giphy.com/media/{{favorite.giphyid}}/100.gif"
+                class="giphy" />
           </div>
     </ul>
   </div>
