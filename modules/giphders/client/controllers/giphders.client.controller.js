@@ -60,6 +60,19 @@ angular.module('giphders').controller('GiphdersController', ['$scope', '$statePa
     };
     
     // Remove favorite item
+    $scope.clearAll = function(){
+      // remove all by userid
+      var giphderFavorite = new Giphders();
+      
+      giphderFavorite.$delete(function (response) {
+        $scope.removeAllAlert();
+        $scope.countFav = 0;
+      }, function (errorResponse) {
+        $scope.errorAlert();
+      });
+    };
+    
+    // Remove favorite item
     $scope.remove = function(favorite, e){
       var giphderFavorite = new Giphders({ 'giphyId':favorite._id });
       var checkElement = e.target.parentNode.parentNode;
@@ -68,12 +81,10 @@ angular.module('giphders').controller('GiphdersController', ['$scope', '$statePa
         if (angular.element(checkElement.parentNode).hasClass('favimg')) {
           checkElement.parentNode.remove();
         } else {
-         checkElement.remove();
+          checkElement.remove();
         }
-        $scope.countFav = $scope.countFav-1;
-        if ($scope.countFav === 0) {
-          $scope.favorites.length = 0; }
         $scope.removeAlert();
+        $scope.countFav = $scope.countFav-1;
       }, function (errorResponse) {
         $scope.errorAlert();
       });
@@ -94,8 +105,13 @@ angular.module('giphders').controller('GiphdersController', ['$scope', '$statePa
       Flash.create('warning', message, 'customAlert');
     };
     
-     $scope.removeAlert = function () {
+    $scope.removeAlert = function () {
       var message = '<strong> You Go, Girl!</strong>  You removed the giphy from your favorites.';
+      Flash.create('info', message, 'customAlert');
+    };
+    
+    $scope.removeAllAlert = function () {
+      var message = '<strong> You Go, Girl!</strong>  You cleared your favorites.';
       Flash.create('info', message, 'customAlert');
     };
   }

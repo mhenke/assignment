@@ -56,6 +56,21 @@ exports.update = function (req, res) {
 };
 
 /**
+ * Delete all giphder for user
+ */
+exports.deleteAll = function (req, res) {
+  Giphder.remove({ userid: req._passport.session.user }).exec(function (err, giphders) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.json(giphders);
+    }
+  });
+};
+
+/**
  * Delete an giphder
  */
 exports.delete = function (req, res) {
