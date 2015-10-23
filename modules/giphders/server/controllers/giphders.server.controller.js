@@ -29,12 +29,41 @@ exports.create = function (req, res) {
 };
 
 /**
+ * Show the current article
+ */
+exports.read = function (req, res) {
+  res.json(req.giphder);
+};
+
+/**
+ * Update a article
+ */
+exports.update = function (req, res) {
+  var giphder = req.giphder;
+
+  giphder.title = req.body.title;
+  giphder.content = req.body.content;
+
+  giphder.save(function (err) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.json(giphder);
+    }
+  });
+};
+
+/**
  * Delete an giphder
  */
 exports.delete = function (req, res) {
-  var giphder = req.giphder;
+  var giphder = new Giphder();
 
+  giphder._id = req.params.giphderId;
   giphder.remove(function (err) {
+
     if (err) {
       return res.status(400).send({
         message: errorHandler.getErrorMessage(err)
@@ -61,17 +90,26 @@ exports.listFavorites = function (req, res) {
 };
 
 /**
+ * List of Favorites by user
+ */
+exports.read = function (req, res) {
+  Giphder.find({ userid: req._passport.session.user }).exec(function (err, giphders) {
+    if (err) {
+      return res.status(400).send({
+        message: errorHandler.getErrorMessage(err)
+      });
+    } else {
+      res.json(giphders);
+    }
+  });
+};
+
+/**
  * Giphder middleware
  */
 exports.giphderByID = function (req, res, next, id) {
 
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).send({
-      message: 'Giphder is invalid'
-    });
-  }
-
-  Giphder.findById(id).populate('user', 'displayName').exec(function (err, giphder) {
+  Giphder.findById(id).exec(function (err, giphder) {
     if (err) {
       return next(err);
     } else if (!giphder) {

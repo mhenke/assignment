@@ -9,15 +9,16 @@ angular.module('giphders').controller('GiphdersController', ['$scope', '$statePa
     // Find a list of Favorites
     $scope.findFavorites = function () {
       $scope.favorites = Giphders.query(function (response) {
+        $scope.countFav = $scope.favorites.length;
       }, function (errorResponse) {
         $scope.errorAlert();
       });
     };
     
      // Add favorite
-    $scope.addToFavorites = function (giphder, eventObject) {
+    $scope.addToFavorites = function (giphyId, eventObject) {
       // Create new Giphder object
-      var giphderFavorite = new Giphders(giphder);
+      var giphderFavorite = new Giphders({ 'giphyId':giphyId });
       
       // Remove card after saving
       giphderFavorite.$save(function (response) {
@@ -59,10 +60,23 @@ angular.module('giphders').controller('GiphdersController', ['$scope', '$statePa
     };
     
     // Remove favorite item
-    $scope.remove = function(_id){	
-      //var findFavorite = new Giphders();
-      //findFavorite.remove();
-      $scope.errorAlert();
+    $scope.remove = function(favorite, e){
+      var giphderFavorite = new Giphders({ 'giphyId':favorite._id });
+      var checkElement = e.target.parentNode.parentNode;
+
+      giphderFavorite.$delete(function (response) {
+        if (angular.element(checkElement.parentNode).hasClass('favimg')) {
+          checkElement.parentNode.remove();
+        } else {
+         checkElement.remove();
+        }
+        $scope.countFav = $scope.countFav-1;
+        if ($scope.countFav === 0) {
+          $scope.favorites.length = 0; }
+        $scope.removeAlert();
+      }, function (errorResponse) {
+        $scope.errorAlert();
+      });
     };
     
     $scope.approvedAlert = function () {
@@ -78,6 +92,11 @@ angular.module('giphders').controller('GiphdersController', ['$scope', '$statePa
     $scope.errorAlert = function () {
       var message = '<strong> Warning!</strong>  We are screwed. Something went wrong, very wrong..';
       Flash.create('warning', message, 'customAlert');
+    };
+    
+     $scope.removeAlert = function () {
+      var message = '<strong> You Go, Girl!</strong>  You removed the giphy from your favorites.';
+      Flash.create('info', message, 'customAlert');
     };
   }
 ]);
