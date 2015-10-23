@@ -66,4 +66,4 @@ $ grunt
 
 Your application should run on port 3000 with the *development* environment configuration, so in your browser just go to [http://localhost:3000](http://localhost:3000)
 
-That's it! Your application should be running. To proceed with your development, check the other sections in this documentation.
+That's it! Your application should be running.
