@@ -111,7 +111,7 @@ angular.module('giphders').controller('GiphdersController', ['$scope', '$statePa
     };
     
     $scope.removeAllAlert = function () {
-      var message = '<strong> You Go, Girl!</strong>  You cleared your favorites.';
+      var message = '<strong> That awkward moment,</strong>  when you realize you cleared your favorites.';
       Flash.create('info', message, 'customAlert');
     };
   }
