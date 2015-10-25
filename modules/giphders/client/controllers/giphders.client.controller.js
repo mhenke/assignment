@@ -9,6 +9,13 @@ angular.module('giphders').controller('GiphdersController', ['$scope', '$statePa
     // Find a list of Favorites
     $scope.findFavorites = function () {
       $scope.favorites = Giphders.query(function (response) {
+        for(var i = 0; i < $scope.favorites.length; i++){
+          if (i === 0) {
+            $scope.textToCopy = 'https://media1.giphy.com/media/'+ $scope.favorites[i].giphyid + '/100.gif';
+          } else {
+            $scope.textToCopy = $scope.textToCopy + ', https://media1.giphy.com/media/'+ $scope.favorites[i].giphyid + '/100.gif';
+          }
+        }
         $scope.countFav = $scope.favorites.length;
       }, function (errorResponse) {
         $scope.errorAlert();
@@ -84,7 +91,7 @@ angular.module('giphders').controller('GiphdersController', ['$scope', '$statePa
           checkElement.remove();
         }
         $scope.removeAlert();
-        $scope.countFav = $scope.countFav-1;
+        $scope.findFavorites();
       }, function (errorResponse) {
         $scope.errorAlert();
       });
@@ -97,21 +104,26 @@ angular.module('giphders').controller('GiphdersController', ['$scope', '$statePa
     
     $scope.rejectedAlert = function () {
       var message = '<strong> Oh Snap!</strong>  You rejected the giphy.';
-      Flash.create('danger', message, 'customAlert');
+      Flash.create('warning', message, 'customAlert');
     };
     
     $scope.errorAlert = function () {
       var message = '<strong> Warning!</strong>  We are screwed. Something went wrong, very wrong..';
-      Flash.create('warning', message, 'customAlert');
+      Flash.create('danger', message, 'customAlert');
     };
     
     $scope.removeAlert = function () {
       var message = '<strong> You Go, Girl!</strong>  You removed the giphy from your favorites.';
-      Flash.create('info', message, 'customAlert');
+      Flash.create('warning', message, 'customAlert');
     };
     
     $scope.removeAllAlert = function () {
       var message = '<strong> That awkward moment,</strong>  when you realize you cleared your favorites.';
+      Flash.create('warning', message, 'customAlert');
+    };
+    
+    $scope.copyAlert = function () {
+      var message = '<strong> Outstanding!</strong>  You copied your favorites to clipboard.';
       Flash.create('info', message, 'customAlert');
     };
   }

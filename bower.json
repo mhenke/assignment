@@ -18,7 +18,9 @@
     "angular-touch": "~1.4.7",
     "gsap": "greensock#~1.18.0",
     "angular-swing": "*",
-    "angular-flash-alert": "~1.1.1"
+    "angular-flash-alert": "~1.1.1",
+    "zeroclipboard": "~2.2.0",
+    "ng-clip": "~0.2.6"
   },
   "resolutions": {
     "angular": "~1.3"

@@ -4,8 +4,10 @@
     <span flash-message="5000"></span> 
     <div class="alert alert-info clearfix" ng-if="countFav">
       <div class="pull-right">
-      <button type="button" class="btn btn-info">Share</button>
+      <input type="hidden" class="form-control" placeholder="Enter text to copy" ng-model="textToCopy">
+      <button type="button" class="btn btn-info" clip-copy="textToCopy" clip-click="copyAlert()">Share</button>
       <button type="button" class="btn btn-danger" ng-click="clearAll()">Clear</button>
+</button>
       </div>
     </div>
   </div>

@@ -19,7 +19,9 @@ module.exports = {
         'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
         'public/lib/angular-file-upload/angular-file-upload.js',
         'public/lib/owasp-password-strength-test/owasp-password-strength-test.js',
-        'public/lib/angular-flash-alert/dist/angular-flash.js '
+        'public/lib/angular-flash-alert/dist/angular-flash.js ',
+        'public/lib/ng-clip/dest/ng-clip.min.js',
+        'public/lib/zeroclipboard/dist/ZeroClipboard.js'
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']
     },
