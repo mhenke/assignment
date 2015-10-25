@@ -36,7 +36,7 @@ angular.module('giphders').controller('GiphdersController', ['$scope', '$statePa
                   url: item.images.fixed_width_small.url
                 });
               });
-              //last card
+              // last card placeholder
               $scope.cards.unshift({
                 id: 'lastCard',
                 url: 'https://placeholdit.imgix.net/~text?txtsize=33&w=100&h=50'
@@ -53,8 +53,11 @@ angular.module('giphders').controller('GiphdersController', ['$scope', '$statePa
     
     // Find the next set of trending giphy items
     $scope.findNext = function () {
+      // Remove card after throwing it
       $scope.cards.pop();
+      // Check if 100 yet
       if ($scope.offset < 100) {
+        // Check array length for getting more
         if ($scope.cards.length === 1) {
           $scope.offset = $scope.offset + 10;
           $http.get('//api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC&limit=10&offset='+$scope.offset)
@@ -85,9 +88,8 @@ angular.module('giphders').controller('GiphdersController', ['$scope', '$statePa
     $scope.addToFavorites = function (giphyId, eventObject) {
       // Create new Giphder object
       var giphderFavorite = new Giphders({ 'giphyId':giphyId });
-      // Remove card after saving
+      
       giphderFavorite.$save(function (response) {
-        eventObject.target.remove();
         $scope.approvedAlert();
       }, function (errorResponse) {
         $scope.errorAlert();
@@ -101,7 +103,7 @@ angular.module('giphders').controller('GiphdersController', ['$scope', '$statePa
       $scope.findNext();
     };
     
-    // Remove favorite item
+    // Remove all favorites
     $scope.clearAll = function(){
       // remove all by userid
       var giphderFavorite = new Giphders();
