@@ -133,3 +133,5 @@ input {
 .favimg {
     padding-bottom: 20px;
 }
+
+#lastCard img { display: none;}
