@@ -37,7 +37,7 @@ angular.module('giphders').controller('GiphdersController', ['$scope', '$statePa
                 });
               });
               //last card
-             $scope.cards.unshift({
+              $scope.cards.unshift({
                 id: 'lastCard',
                 url: 'https://placeholdit.imgix.net/~text?txtsize=33&w=100&h=50'
               });
@@ -78,7 +78,7 @@ angular.module('giphders').controller('GiphdersController', ['$scope', '$statePa
         }
       } else {
         $scope.lifeAlert();
-      };
+      }
     };
         
     // Add favorite
