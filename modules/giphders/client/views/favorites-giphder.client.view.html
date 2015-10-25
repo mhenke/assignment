@@ -4,10 +4,9 @@
     <span flash-message="5000"></span> 
     <div class="alert alert-info clearfix" ng-if="countFav">
       <div class="pull-right">
-      <input type="hidden" class="form-control" placeholder="Enter text to copy" ng-model="textToCopy">
-      <button type="button" class="btn btn-info" clip-copy="textToCopy" clip-click="copyAlert()">Share</button>
-      <button type="button" class="btn btn-danger" ng-click="clearAll()">Clear</button>
-</button>
+        <input type="hidden" class="form-control" placeholder="Enter text to copy" ng-model="textToCopy">
+        <button type="button" class="btn btn-info" clip-copy="textToCopy" clip-click="copyAlert()">Share</button>
+        <button type="button" class="btn btn-danger" ng-click="clearAll()">Clear</button>
       </div>
     </div>
   </div>
@@ -22,13 +21,14 @@
             />
           <div>
             <button type="button" class="btn btn-primary" ng-click="remove(favorite, $event)">
-              <span class="glyphicon glyphicon-remove"></span> <span>Remove</span>
+              <span class="glyphicon glyphicon-remove"></span>
+              <span>Remove</span>
             </button>
           </div> 
       </div>
     </ul>
   </div>
   <div class="alert alert-warning text-center" ng-if="!countFav">
-    No favorites yet, why don't you <a ui-sref="giphders.gifs">create some</a>?
+    No favorites yet, why don't you <a ui-sref="giphders.gifs">create some already</a>?
   </div>
 </section>
