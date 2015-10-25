@@ -160,7 +160,7 @@ angular.module('giphders').controller('GiphdersController', ['$scope', '$statePa
     };
     
     $scope.copyAlert = function () {
-      var message = '<strong> Outstanding!</strong>  You copied your favorites to the clipboard.';
+      var message = '<strong> Outstanding!</strong>  You copied your favorite urls to the clipboard.';
       Flash.create('info', message, 'customAlert');
     };
     
