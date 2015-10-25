@@ -21,34 +21,25 @@ angular.module('giphders').controller('GiphdersController', ['$scope', '$statePa
         $scope.errorAlert();
       });
     };
-    
-     // Add favorite
-    $scope.addToFavorites = function (giphyId, eventObject) {
-      // Create new Giphder object
-      var giphderFavorite = new Giphders({ 'giphyId':giphyId });
-      
-      // Remove card after saving
-      giphderFavorite.$save(function (response) {
-        eventObject.target.remove();
-        $scope.approvedAlert();
-      }, function (errorResponse) {
-        eventObject.target.remove();
-        $scope.errorAlert();
-      });
-    };
 
     // Find the trending giphy items
     $scope.find = function () {
       $scope.cards = [];
-      $http.get('//api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC&limit=100')
+      $scope.offset = 0;
+      $http.get('//api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC&limit=10')
         .success(
           function(data,status){
             if(typeof data==='object'){
-              angular.forEach(data.data, function(item){
+              angular.forEach(data.data.reverse(), function(item){
                 $scope.cards.push({
                   id: item.id,
                   url: item.images.fixed_width_small.url
                 });
+              });
+              //last card
+             $scope.cards.unshift({
+                id: 'lastCard',
+                url: 'https://placeholdit.imgix.net/~text?txtsize=33&w=100&h=50'
               });
             }
           }
@@ -60,10 +51,54 @@ angular.module('giphders').controller('GiphdersController', ['$scope', '$statePa
         );
     };
     
+    // Find the next set of trending giphy items
+    $scope.findNext = function () {
+      $scope.cards.pop();
+      if ($scope.offset < 100) {
+        if ($scope.cards.length === 1) {
+          $scope.offset = $scope.offset + 10;
+          $http.get('//api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC&limit=10&offset='+$scope.offset)
+          .success(
+            function(data,status){
+              if(typeof data==='object'){
+                angular.forEach(data.data.reverse(), function(item){
+                  $scope.cards.push({
+                    id: item.id,
+                    url: item.images.fixed_width_small.url
+                  });
+                });
+              }
+            }
+          )
+          .error(
+            function(){
+              $scope.errorAlert();
+            }
+          );  
+        }
+      } else {
+        $scope.lifeAlert();
+      };
+    };
+        
+    // Add favorite
+    $scope.addToFavorites = function (giphyId, eventObject) {
+      // Create new Giphder object
+      var giphderFavorite = new Giphders({ 'giphyId':giphyId });
+      // Remove card after saving
+      giphderFavorite.$save(function (response) {
+        eventObject.target.remove();
+        $scope.approvedAlert();
+      }, function (errorResponse) {
+        $scope.errorAlert();
+      });
+      $scope.findNext();
+    };
+    
     // Reject card
     $scope.rejectCard = function (eventObject) {
-      eventObject.target.remove();
       $scope.rejectedAlert();
+      $scope.findNext();
     };
     
     // Remove favorite item
@@ -125,6 +160,11 @@ angular.module('giphders').controller('GiphdersController', ['$scope', '$statePa
     $scope.copyAlert = function () {
       var message = '<strong> Outstanding!</strong>  You copied your favorites to the clipboard.';
       Flash.create('info', message, 'customAlert');
+    };
+    
+    $scope.lifeAlert = function () {
+      var message = '<strong> Push Away!</strong>  You have to get a life please.';
+      Flash.create('danger', message, 'customAlert');
     };
   }
 ]);
